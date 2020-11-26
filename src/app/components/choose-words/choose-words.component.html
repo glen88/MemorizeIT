@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Choose</ion-title>
+    <ion-buttons slot="start" >
+      <ion-back-button color="light" defaultHref="/">
+          </ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="animated fadeIn">
+  <ion-row>
+    <ion-col class="lifes">
+     <ion-icon class="star" id="0" name="star-sharp"></ion-icon>
+     <ion-icon class="star" id= "1" name="star-sharp"></ion-icon> 
+    </ion-col>
+  </ion-row>
+  <div id="container">
+    
+      <ion-grid  [fixed]="true">
+      <ion-row>
+        <ion-col   *ngFor="let item of palabrasDesordenadas; let i = index">
+          <ion-button  fill="outline" [ngClass]="{'bordes': correcto[i]}" expand="block" id="i" shape="round"   (click)="onClick(item , i)" [disabled]="correcto[i]">
+            <span [hidden]="correcto[i]" >{{item}}</span>
+            <ion-icon [hidden]=!correcto[i] name="checkmark-circle-outline" color="success"></ion-icon>
+            <!-- <ion-icon [hidden]=!iconWrong[i] name="sad-outline" color="danger"></ion-icon> -->
+          </ion-button>
+    
+      
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+</div>
+
+</ion-content>
