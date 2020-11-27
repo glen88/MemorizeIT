@@ -13,8 +13,7 @@ const routes: Routes = [
     component : ShowWordsComponent
   },
   {
-    // path: 'choose:/lista',
-    path: 'choose',
+    path: 'choose/:lista',
     component : ChooseWordsComponent
   },
   {
@@ -23,8 +22,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'page-palabra',
+    path: 'page-palabra/:lista',
     loadChildren: () => import('./page-palabra/page-palabra.module').then( m => m.PagePalabraPageModule)
+  },
+  {
+    path: 'page-score',
+    loadChildren: () => import('./page-score/page-score.module').then( m => m.PageScorePageModule)
   },
 ];
 

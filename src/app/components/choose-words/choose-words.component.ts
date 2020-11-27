@@ -15,22 +15,21 @@ export class ChooseWordsComponent implements OnInit {
   contadorIncorrecto  = 0;
   correcto = {};
   wrong = {};
+  nombreLista: string;
   @ViewChild('lifes') block: ElementRef;
-  constructor(public service: MemoryServiceService, private route: Router) {
-    // const lista = this.service.palabrasAleatorias(3);
-    // console.log(lista);
-    // this.route.params.subscribe(params => {
-    //   console.log(params);
-    // });
-    // console.log(this.service.listaPalabras);
-   }
+  constructor(public service: MemoryServiceService, private route: Router,
+              private activate: ActivatedRoute )
+              {
+                    this.nombreLista = activate.snapshot.paramMap.get('lista');
+              }
 
    onClick(item: string, index: number){
 
           if ( item === this.palabras[this.contador]) {
             this.correcto[index] = true;
             console.log('Orden Correcto');
-            this.contador === (this.palabras.length - 1) ? this.route.navigate(['page-palabra']) : console.log('correcto');
+            this.contador === (this.palabras.length - 1) ?
+            this.route.navigate(['page-palabra', this.nombreLista]) : console.log('correcto');
             this.contador = this.contador + 1;
           }
           else{
@@ -41,7 +40,7 @@ export class ChooseWordsComponent implements OnInit {
                 console.log('contador incorrecto: ' + this.contadorIncorrecto );
 
             }
-            else { this.route.navigate(['home']); }
+            else { this.route.navigate(['page-score']); }
           }
 
         }

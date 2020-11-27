@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { easy, index } from '../Listas/listas';
+import { easy, index, symbols } from '../Listas/listas';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +17,23 @@ export class MemoryServiceService {
    }
 
 
-  public palabrasAleatorias(nivel: number) {
+  public palabrasAleatorias(nivel: number, nombreLista: string) {
+    // debugger;
     this.palabras = [];
-    nivel += this.posicionArrNum; // = 3
-    // console.log(this.posicionArrNum, nivel);
+    nivel += this.posicionArrNum;
     for (let i = this.posicionArrNum; i < nivel; i++) {
-      // console.log(i);
-      // console.log(easy[this.numeros[i]] + '+++');
-
-      this.palabras.push(easy[this.numeros[i]]);
+      if ( nombreLista === 'easy' || nombreLista === 'fast')
+      {
+        this.palabras.push(easy[this.numeros[i]]);
+      }
+      else if ( nombreLista === 'symbols')
+      {
+        this.palabras.push(symbols[this.numeros[i]]);
+      }
+      else {
+      }
     }
+
     this.posicionArrNum = nivel;
     return this.palabras;
   }

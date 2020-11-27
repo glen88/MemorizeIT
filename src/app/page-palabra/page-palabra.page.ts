@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ViewDidEnter, ViewDidLeave, ViewWillEnter } from '@ionic/angular';
 import { MemoryServiceService } from '../services/memory-service.service';
 
@@ -12,8 +12,15 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
   palabra: string;
   nivel = 3;
   lista: string[] = [];
+  nombreLista: string;
+  tiempo = 800;
 
-  constructor(public service: MemoryServiceService, public route: Router) { }
+  constructor( public service: MemoryServiceService, private route: Router,
+               private activate: ActivatedRoute )
+               {
+                 this.nombreLista = activate.snapshot.paramMap.get('lista');
+                //  debugger;
+               }
 
   ngOnInit() {
   }
@@ -24,13 +31,12 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
   }
 
   ionViewWillEnter(){
-    // console.log(this.nivel);
-    // console.log('after');
-    this.lista = this.service.palabrasAleatorias(this.nivel);
+
+    this.lista = this.service.palabrasAleatorias(this.nivel, this.nombreLista );
     console.log(this.lista + 'PALABRAS ALEATORIAS');
     this.nivel += 1;
-    // console.log(this.nivel);
-    this.muestraPalabra(this.lista, 800);
+    this.nombreLista === 'fast' ? this.tiempo = 300 : this.tiempo = this.tiempo;
+    this.muestraPalabra(this.lista, this.tiempo);
   }
   ionViewDidEnter(){
     // console.log('didEnter');
@@ -46,15 +52,12 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
         this.palabra = result;
       }, time + offset);
       offset += time;
-      // console.log('mandar a otra pantalla2');
 
     });
 
     setTimeout(() => {
-      // console.log('pantalla2');
-      this.route.navigate(['choose']);
+      this.route.navigate(['choose', this.nombreLista]);
     },  time + offset);
-    // console.log('mandar a otra pantalla');
   }
 
 }

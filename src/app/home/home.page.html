@@ -11,20 +11,20 @@
     <ion-grid >
       <ion-row>
         <ion-col  class="cubo">
-          <ion-button routerLink="/page-palabra" class="btn">
+          <ion-button [routerLink]="['/page-palabra','easy']" class="btn">
             EASY
           </ion-button>
         </ion-col>
         
         <ion-col  class="cubo">
-          <ion-button class="btn">
+          <ion-button [routerLink]="['/page-palabra','fast']" class="btn">
             FAST
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col  class="cubo">
-          <ion-button class="btn">
+          <ion-button [routerLink]="['/page-palabra','symbols']" class="btn">
             Symbols
           </ion-button>
         </ion-col>
