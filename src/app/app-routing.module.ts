@@ -26,7 +26,7 @@ const routes: Routes = [
     loadChildren: () => import('./page-palabra/page-palabra.module').then( m => m.PagePalabraPageModule)
   },
   {
-    path: 'page-score',
+    path: 'page-score/:level/:lista',
     loadChildren: () => import('./page-score/page-score.module').then( m => m.PageScorePageModule)
   },
 ];

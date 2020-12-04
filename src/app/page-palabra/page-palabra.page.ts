@@ -10,7 +10,7 @@ import { MemoryServiceService } from '../services/memory-service.service';
 })
 export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, ViewDidLeave {
   palabra: string;
-  nivel = 3;
+  nivel: number;
   lista: string[] = [];
   nombreLista: string;
   tiempo = 800;
@@ -23,6 +23,12 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
                }
 
   ngOnInit() {
+    console.log('esta entradno desde el meni');
+  }
+
+  get Level()
+  {
+    return this.nivel - 2;
   }
 
   ionViewDidLeave()
@@ -31,10 +37,11 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
   }
 
   ionViewWillEnter(){
-
+    // debugger;
+    this.nivel = this.service.getLevel;
     this.lista = this.service.palabrasAleatorias(this.nivel, this.nombreLista );
     console.log(this.lista + 'PALABRAS ALEATORIAS');
-    this.nivel += 1;
+    this.service.setLevel = this.nivel + 1;
     this.nombreLista === 'fast' ? this.tiempo = 300 : this.tiempo = this.tiempo;
     this.muestraPalabra(this.lista, this.tiempo);
   }

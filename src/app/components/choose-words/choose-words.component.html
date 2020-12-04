@@ -1,10 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Choose</ion-title>
-    <ion-buttons slot="start" >
+    <!-- <ion-buttons slot="start" >
       <ion-back-button color="light" defaultHref="/">
           </ion-back-button>
-      </ion-buttons>
+      </ion-buttons> -->
+      
   </ion-toolbar>
 </ion-header>
 
@@ -14,9 +15,15 @@
      <ion-icon class="star" id="0" name="star-sharp"></ion-icon>
      <ion-icon class="star" id= "1" name="star-sharp"></ion-icon> 
     </ion-col>
-    <!-- <ion-col>
-      <ion-icon name="time-outline"></ion-icon>
-    </ion-col> -->
+    <ion-col class=" ion-text-end">
+      <ion-icon [hidden]=!isFast name="time-outline"></ion-icon>
+      <ion-label [hidden]=!isFast> 
+      {{timer}}
+      </ion-label>
+    </ion-col>
+    <ion-col class="ion-align-items-end ion-text-end ion-margin-end">
+      <ion-label>LEVEL: {{ palabrasDesordenadas.length - 2 }}</ion-label>
+    </ion-col>
   </ion-row>
   <div id="container">
     

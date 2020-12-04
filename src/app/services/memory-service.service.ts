@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { easy, index, symbols } from '../Listas/listas';
+import { easy, index, symbols, numerics } from '../Listas/listas';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,19 @@ export class MemoryServiceService {
   // palabra: string;
   numeros: number[] = [];
   posicionArrNum  = 0;
+  nivel = 3;
 
   constructor() {
     this.numerosAleatorios();
     // console.log('solo una vez');
    }
 
-
+   get getLevel() {
+     return this.nivel;
+   }
+   set setLevel(nivel: number) {
+     this.nivel = nivel;
+   }
   public palabrasAleatorias(nivel: number, nombreLista: string) {
     // debugger;
     this.palabras = [];
@@ -30,7 +36,9 @@ export class MemoryServiceService {
       {
         this.palabras.push(symbols[this.numeros[i]]);
       }
-      else {
+      else if ( nombreLista === 'numerics')
+      {
+        this.palabras.push(numerics[this.numeros[i]]);
       }
     }
 

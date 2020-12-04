@@ -1,13 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemoryServiceService } from '../../services/memory-service.service';
+import { ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-choose-words',
   templateUrl: './choose-words.component.html',
   styleUrls: ['./choose-words.component.scss'],
 })
-export class ChooseWordsComponent implements OnInit {
+export class ChooseWordsComponent implements OnInit, ViewWillEnter {
 
   palabras: string[] = [];
   palabrasDesordenadas: string[] = [];
@@ -15,7 +16,10 @@ export class ChooseWordsComponent implements OnInit {
   contadorIncorrecto  = 0;
   correcto = {};
   wrong = {};
+  timer = 0;
   nombreLista: string;
+  intervalo: any;
+  isFast = false;
   @ViewChild('lifes') block: ElementRef;
   constructor(public service: MemoryServiceService, private route: Router,
               private activate: ActivatedRoute )
@@ -27,9 +31,11 @@ export class ChooseWordsComponent implements OnInit {
 
           if ( item === this.palabras[this.contador]) {
             this.correcto[index] = true;
-            console.log('Orden Correcto');
-            this.contador === (this.palabras.length - 1) ?
-            this.route.navigate(['page-palabra', this.nombreLista]) : console.log('correcto');
+            if (this.contador === (this.palabras.length - 1) )
+            {
+              this.limpiarIntervalo();
+              this.route.navigate(['page-palabra', this.nombreLista]);
+            }
             this.contador = this.contador + 1;
           }
           else{
@@ -40,17 +46,56 @@ export class ChooseWordsComponent implements OnInit {
                 console.log('contador incorrecto: ' + this.contadorIncorrecto );
 
             }
-            else { this.route.navigate(['page-score']); }
+            else {
+              // debugger;
+              this.limpiarIntervalo();
+              this.route.navigate(['page-score', this.palabrasDesordenadas.length - 2 , this.nombreLista]); }
           }
 
         }
+
+  limpiarIntervalo()
+  {
+    if (this.nombreLista === 'fast')
+    {
+      this.isFast = true;
+      clearInterval(this.intervalo);
+    }
+    else{
+      this.isFast = false;
+    }
+
+  }
+  ionViewWillEnter()
+  {
+    if (this.nombreLista === 'fast')
+    {
+      this.isFast = true;
+
+      this.intervalo = setInterval(() => {
+        this.timer ++;
+        console.log(this.timer);
+        if ( this.timer === 10){
+          clearInterval(this.intervalo);
+          this.route.navigate(['page-score', this.palabrasDesordenadas.length - 2 , this.nombreLista]);
+        }
+      }, 1000);
+
+    }
+    else
+    {
+      this.isFast = false;
+    }
+
+  }
+
   ngOnInit() {
     // console.log('se llamo noninit');
     this.palabrasDesordenadas = this.service.listaPalabrasDesordenadas;
 
     this.palabras = this.service.listaPalabras;
-    console.log(this.palabras + '***');
-    console.log(this.palabrasDesordenadas + ' DESORDEN***');
+    // console.log(this.palabras + '***');
+    // console.log(this.palabrasDesordenadas + ' DESORDEN***');
 
     // setTimeout(() => {
 

@@ -5,9 +5,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-label>GAME OVER</ion-label>
+  <ion-label class="go">GAME OVER</ion-label>
   <div id="container">
-      <ion-label>Tu puntaje es chalala chalala</ion-label><br>
-      <ion-button routerLink='/home'>Play Again</ion-button>
+      <ion-label style="font-size: 20px;">Your Max Level  {{ level }}</ion-label><br>
+      
+      <ion-button  [routerLink]="['/page-palabra', lista ]" slot="icon-only">
+        <ion-icon size="large" name="reload-outline" ></ion-icon>
+        </ion-button>
+        <ion-button  routerLink='/home' slot="icon-only">
+          <ion-icon size="large" name="play-outline" ></ion-icon>
+          </ion-button>
   </div>
 </ion-content>
