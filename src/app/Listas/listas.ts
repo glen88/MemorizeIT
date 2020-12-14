@@ -419,6 +419,28 @@ export const symbols = [
 'Ä'
 ];
 
+export const symbols000 = [
+    'apple-1',
+    'apple',
+    'asparagus',
+    'aubergine',
+    'avocado',
+    'bacon',
+    'baguette',
+    'bannana',
+    'beans',
+    'biscuit',
+    'blueberries',
+    'boiled',
+    'bowl-1',
+    'bowl',
+    'bread-1',
+    'bread-2',
+    'bread',
+    'brocoli',
+    'butcher'
+];
+
 export const numerics = [
 '1',
 '2',

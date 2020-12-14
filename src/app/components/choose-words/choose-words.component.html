@@ -29,14 +29,12 @@
     
       <ion-grid  [fixed]="true">
       <ion-row>
-        <ion-col   *ngFor="let item of palabrasDesordenadas; let i = index">
-          <ion-button  fill="outline" [ngClass]="{'bordes': correcto[i]}" expand="block" id="i" shape="round"   (click)="onClick(item , i)" [disabled]="correcto[i]">
+        <ion-col size="6" *ngFor="let item of palabrasDesordenadas; let i = index">
+          <ion-button size="large"  fill="clear" [ngClass]="{'bordes': correcto[i]}" expand="block" id="i"   (click)="onClick(item , i)" [disabled]="correcto[i]">
             <span [hidden]="correcto[i]" >{{item}}</span>
             <ion-icon [hidden]=!correcto[i] name="checkmark-circle-outline" color="success"></ion-icon>
             <!-- <ion-icon [hidden]=!iconWrong[i] name="sad-outline" color="danger"></ion-icon> -->
           </ion-button>
-    
-      
         </ion-col>
       </ion-row>
     </ion-grid>

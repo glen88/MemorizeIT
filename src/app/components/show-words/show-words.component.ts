@@ -9,7 +9,7 @@ import { MemoryServiceService } from '../../services/memory-service.service';
   styleUrls: ['./show-words.component.scss'],
 })
 export class ShowWordsComponent implements OnInit{
-
+url = 'assets/img/';
 @Input() palabra: string;
   constructor(public service: MemoryServiceService, public route: Router) {}
 
