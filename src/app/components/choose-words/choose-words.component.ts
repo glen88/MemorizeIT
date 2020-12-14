@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemoryServiceService } from '../../services/memory-service.service';
 import { ViewWillEnter } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-choose-words',
@@ -15,35 +16,38 @@ export class ChooseWordsComponent implements OnInit, ViewWillEnter {
   contador = 0;
   contadorIncorrecto  = 0;
   correcto = {};
-  wrong = {};
   timer = 0;
   nombreLista: string;
   intervalo: any;
   isFast = false;
   @ViewChild('lifes') block: ElementRef;
   constructor(public service: MemoryServiceService, private route: Router,
-              private activate: ActivatedRoute )
+              private activate: ActivatedRoute, public alertController: AlertController )
               {
                     this.nombreLista = activate.snapshot.paramMap.get('lista');
               }
 
    onClick(item: string, index: number){
-
+          // debugger;
+          console.log('dio click');
           if ( item === this.palabras[this.contador]) {
             this.correcto[index] = true;
             if (this.contador === (this.palabras.length - 1) )
             {
+              console.log('esta es la ultima punzada deberia ser true' +  this.correcto[index]);
               this.limpiarIntervalo();
-              this.route.navigate(['page-palabra', this.nombreLista]);
+              // this.enviarPantallaConT('next');
+              this.presentAlertConfirm();
             }
             this.contador = this.contador + 1;
+            console.log(index);
           }
           else{
 
             if ( this.contadorIncorrecto < 2 ){
                 document.getElementById(this.contadorIncorrecto.toString()).style.display = 'none';
                 this.contadorIncorrecto += 1;
-                console.log('contador incorrecto: ' + this.contadorIncorrecto );
+                // console.log('contador incorrecto: ' + this.contadorIncorrecto );
 
             }
             else {
@@ -53,6 +57,46 @@ export class ChooseWordsComponent implements OnInit, ViewWillEnter {
           }
 
         }
+  async presentAlertConfirm() {
+          const alert = await this.alertController.create({
+            cssClass: 'my-custom-class',
+            // header: 'Confirm!',
+            message: 'Good Job!!',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: (blah) => {
+                  console.log('Confirm Cancel: blah');
+                }
+              }, {
+                text: 'Next Level',
+                handler: () => {
+                  this.route.navigate(['page-palabra', this.nombreLista]);
+                }
+              }
+            ]
+          });
+          await alert.present();
+        }
+
+  // enviarPantallaConT(pag: string){
+
+  //     setTimeout(() => {
+
+  //       if ( pag === 'next')
+  //       {
+  //         this.route.navigate(['page-palabra', this.nombreLista]);
+
+  //       }
+  //       else{
+
+  //       }
+  //   }, 2000);
+
+
+  // }
 
   limpiarIntervalo()
   {

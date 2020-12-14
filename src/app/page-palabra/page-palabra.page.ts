@@ -23,7 +23,7 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
                }
 
   ngOnInit() {
-    console.log('esta entradno desde el meni');
+    // console.log('esta entradno desde el meni');
   }
 
   get Level()
@@ -40,7 +40,7 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
     // debugger;
     this.nivel = this.service.getLevel;
     this.lista = this.service.palabrasAleatorias(this.nivel, this.nombreLista );
-    console.log(this.lista + 'PALABRAS ALEATORIAS');
+    // console.log(this.lista + 'PALABRAS ALEATORIAS');
     this.service.setLevel = this.nivel + 1;
     this.nombreLista === 'fast' ? this.tiempo = 300 : this.tiempo = this.tiempo;
     this.muestraPalabra(this.lista, this.tiempo);
@@ -55,7 +55,7 @@ export class PagePalabraPage implements OnInit, ViewWillEnter, ViewDidEnter, Vie
     palabras.forEach( result => {
 
       setTimeout(() => {
-        console.log(result);
+        // console.log(result);
         this.palabra = result;
       }, time + offset);
       offset += time;
